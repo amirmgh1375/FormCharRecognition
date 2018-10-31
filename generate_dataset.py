@@ -5,6 +5,7 @@ import numpy as np
 from pprint import pprint
 from operator import itemgetter
 from tqdm import tqdm
+import time
 
 class CharRecognition:
 
@@ -166,15 +167,18 @@ if __name__ == "__main__":
     num_c = 0
     for form in tqdm(forms):
         if form.split('.')[1] == 'jpg':
-            CharRecognition_object = CharRecognition(form)
-            image, detected_eyes = CharRecognition_object.detect_eyes(CharRecognition_object.strighted_image)
-            image_rows = CharRecognition_object.get_rows(image, detected_eyes)
-            # print(form)
-            # print(len(detected_eyes))
-            # print(len(test_img))
-            for row in image_rows:
-                cv2.imwrite(grade_alfabet + '/' + str(alfa_c) + '.jpg', CharRecognition_object.get_grade_alfabet(row))
-                for char in CharRecognition_object.get_grade_number(row):
-                    cv2.imwrite(grade_number + '/' + str(num_c) + '.jpg', char)
-                    num_c += 1
-                alfa_c += 1    
+            try:
+                CharRecognition_object = CharRecognition(form)
+                image, detected_eyes = CharRecognition_object.detect_eyes(CharRecognition_object.strighted_image)
+                image_rows = CharRecognition_object.get_rows(image, detected_eyes)
+                # print(form)
+                # print(len(detected_eyes))
+                # print(len(test_img))
+                for row in image_rows:
+                    cv2.imwrite(grade_alfabet + '/' + str(alfa_c) + '.jpg', CharRecognition_object.get_grade_alfabet(row))
+                    for char in CharRecognition_object.get_grade_number(row):
+                        cv2.imwrite(grade_number + '/' + str(num_c) + '.jpg', char)
+                        num_c += 1
+                    alfa_c += 1  
+            except:
+                print('image type error !!')  
