@@ -1,0 +1,27 @@
+{
+  "name": "fcr-webapp",
+  "version": "0.0.0",
+  "description": "Web application interface for FormCharRecognition project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amirmgh1375/FormCharRecognition.git"
+  },
+  "keywords": [
+    "character",
+    "recognition",
+    "form",
+    "reader",
+    "ocr",
+    "score"
+  ],
+  "author": "Mohammad H. Sattarian (mh_sattarian@outlook.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amirmgh1375/FormCharRecognition/issues"
+  },
+  "homepage": "https://github.com/amirmgh1375/FormCharRecognition#readme"
+}

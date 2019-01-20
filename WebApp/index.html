@@ -5,10 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Form Reader Project</title>
+    <!-- FontAwesome  -->
+    <link href="./src/css/all.css" rel="stylesheet"> 
     <link rel="stylesheet" href="./src/css/style.css">
-    <script src="./src/js/index.js"></script>
+
+    <script src="./src/js/dropzone.js"></script>
+    <script async src="./src/js/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
 </head>
 <body>
+    <div class="container">
+        <div id="upload-place" data-width="400px" data-height="400px">
+            <!-- <i class="far fa-image fa-4x"></i> -->
+            <p class="before-upload">Drag & Drop Here</p>
+            <canvas id="imageCanvas"></canvas>
+        </div>
 
+        <img src="" alt="" id="preview">
+    </div>
+
+
+    <script src="./src/js/index.js"></script>
 </body>
 </html>

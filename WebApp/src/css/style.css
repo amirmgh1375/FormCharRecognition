@@ -1,0 +1,110 @@
+body {
+    background-color: #2f2d2d;
+    background-image: url(/src/assets/organ1.png);
+    background-size: 650px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 97vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'raleways', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+#upload-place {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #cccc;
+    border-radius: 3px;
+    box-shadow: -2px 2px 36px -7px black;
+    background-color: #0009;
+    text-align: center;
+    user-select: none;
+    transition: all .3s;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#upload-place:not(.dz-started):before {
+    position: relative;
+    font-family: 'Font Awesome 5 Free';
+    content: "\f03e";
+    font-size: 65px;
+}
+
+#upload-place:not(.dz-started):after {
+    content: 'Click to Browse';
+    display: block;
+    width: inherit;
+    height: 30px;
+    position: relative;
+    z-index: 10;
+    background: #ccc2;
+    bottom: calc(-100%/2 + 10px);
+    border-radius: inherit;
+    color: black;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s;
+}
+
+#upload-place:hover {
+    animation: go-down .7s;
+    animation-fill-mode: forwards;
+}
+
+#upload-place:hover::after {
+    opacity: 1;
+    bottom: calc(-100%/2);
+    transform: translateY(-100%);
+}
+
+@keyframes go-down {
+    10% {
+        box-shadow: -2px 2px 16px -7px black;
+    }
+
+    30% {
+        box-shadow: -2px 2px 0px -7px black;
+    }
+
+    40% {
+        box-shadow: -2px 2px 0px -7px black inset;
+    }
+
+    50% {
+        box-shadow: -2px 2px 0px -7px black inset;
+    }
+    
+    70% {
+        box-shadow: -2px 2px 26px -7px black inset;
+    }
+    
+    80% {
+        box-shadow: -2px 2px 36px -7px black inset;
+    }
+
+    100% {
+        box-shadow: -2px 2px 36px -7px black inset;
+    }
+}
+
+.dz-started .before-upload {
+    display: none;
+}
+
+.dz-preview {
+    display: none
+}
+
+#preview {
+    width: 300px;
+    height: 300px;
+}
