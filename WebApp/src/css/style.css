@@ -58,12 +58,14 @@ body {
 #upload-place:hover {
     animation: go-down .7s;
     animation-fill-mode: forwards;
+    cursor: pointer;
 }
 
 #upload-place:hover::after {
     opacity: 1;
     bottom: calc(-100%/2);
     transform: translateY(-100%);
+    color: #cccc
 }
 
 @keyframes go-down {
@@ -104,7 +106,12 @@ body {
     display: none
 }
 
+#imageCanvas {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
 #preview {
-    width: 300px;
-    height: 300px;
+    display: none;
 }
