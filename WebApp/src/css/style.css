@@ -12,6 +12,15 @@ body {
     font-family: 'raleways', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 #upload-place {
     width: 300px;
     height: 300px;
@@ -33,7 +42,7 @@ body {
 #upload-place:not(.dz-started):before {
     position: relative;
     font-family: 'Font Awesome 5 Free';
-    content: "\f03e";
+    content: "\f15c";
     font-size: 65px;
 }
 
@@ -114,4 +123,20 @@ body {
 
 #preview {
     display: none;
+}
+
+.aboutus {
+    display: inline-block;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 100px;
+    height: 30px;
+    background-color: #ddd2;
+    color: #cccc;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
 }

@@ -3,3 +3,4 @@ Dataset/*
 .vscode/*
 test/*
 grade_*/*
+model/fastai/
