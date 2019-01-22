@@ -8,7 +8,7 @@ uploadPlace.addEventListener('sumbmit', (e)=> {
 
 // Creating a Dropzone element
 var uploadPlaceDropZone = new Dropzone('#upload-place', { 
-    url: '/file/post'
+    url: '/predict'
 });
 
 // After a File is selected (image might not be read yet)

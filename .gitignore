@@ -4,3 +4,6 @@ Dataset/*
 test/*
 grade_*/*
 model/fastai/
+form_to_predict/
+__pycache__
+form_to_predict/*
