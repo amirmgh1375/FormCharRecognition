@@ -68,9 +68,15 @@ uploadPlaceDropZone.on('success', (e, result)=> {
         return parseInt(score.filter(item => !(item == 10)).join(''));
     });
     
-    predictedScores = document.querySelectorAll('.predicted-scores .score')
+    var predictedScores = document.querySelectorAll('.predicted-scores .score')
     for (var i=0; i < predictedScores.length; i++) {
-        predictedScores[i].innerText = scores[i];
+        predictedScores[i].children[0].innerText = scores[i];
+        console.log(predictedScores[i].children);
+        
+        for (var j=0; j < predictedScores[i].children.length - 1; j++) {
+            console.log(i, j);
+            predictedScores[i].children[j+1].src = `form_to_predict/grade_number/${i*5+j}.jpg`;
+        }
     }
     
     scoresHolder = document.querySelector('.predicted-scores')

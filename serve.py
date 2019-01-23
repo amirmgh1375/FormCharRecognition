@@ -33,6 +33,10 @@ def Root():
 def send_js(path):
     return send_from_directory('WebApp', path)
 
+@app.route('/form_to_predict/<path:path>')
+def send_imgs(path):
+    return send_from_directory('form_to_predict', path)
+
 # Upload image and call extraction and prediction functions
 @app.route('/predict', methods=['POST'])
 def upload():
@@ -73,62 +77,19 @@ def extractImagesFromForm():
 
 
 
-
-
-'''TODO: Use image without saving in disk'''
-# def data_uri_to_cv2_img(encoded_data):
-#     # encoded_data = uri.split(',')[1]
-#     imgdata = base64.b64decode(encoded_data)
-#     # nparr = np.fromstring(imgdata, np.uint8)
-#     nparr = np.asarray(imgdata, dtype=np.uint8)
-#     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-#     print(type(img))
-#     cv2.imshow('image', img)
-#     # return img
-
-
-labels = ['Architect Campus', 'Buffet',
-              'Computer Campus', 'Culture house', 'Field', 'Self']
-
-# End-point to predict last uploded image
-# def predict(imgaddr):
-#     ''' predicts the last uploaded image an returns a string at last containing classes probability.'''
-#     global model
-#     img = cv2.imread(imgaddr)
-#     h, w, c = img.shape
-#     if w > h: # rotate image if it's in wrong orientation
-#       # rotation is done by ImageMagick so it sohuld be installed
-#       call(['mogrify', '-rotate', '90', 'uploads/imageToPredict.jpg'])
-#     img = image.load_img(imgaddr, target_size=(108, 192))
-#     x = image.img_to_array(img)
-#     x = np.expand_dims(x, axis=0)
-#     x = preprocess_input(x)
-#     if not model:
-#         print('------- loading model')
-#         model = load_model('PF-50-fixed 24-3-97.h5')
-#     features = model.predict(x)
-#     predicts = []
-#     for i, p in enumerate(features[0]):
-#         item = '%s Probability: %f' % (labels[i], p)
-#         predicts.append(item)
-#     predicts_string = '\n'.join(predicts)
-#     return predicts_string
+# # end-point to get the last image sent to predict
+# @app.route('/imagetopredict')
+# def uploaded_file():
+#     # images sent overwrite each other so there is only one image to get
+#     return send_from_directory('uploads/', 'imageToPredict.jpg')
 
 
 
-# end-point to get the last image sent to predict
-@app.route('/imagetopredict')
-def uploaded_file():
-    # images sent overwrite each other so there is only one image to get
-    return send_from_directory('uploads/', 'imageToPredict.jpg')
-
-
-
-# End-point to predict again last uploded image
-@app.route('/predictagain')
-def predict_again():
-    f = predict('uploads/imageToPredict.jpg')
-    return f
+# # End-point to predict again last uploded image
+# @app.route('/predictagain')
+# def predict_again():
+#     f = predict('uploads/imageToPredict.jpg')
+#     return f
 
 
 # RUN THE SERVER THING

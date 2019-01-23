@@ -182,7 +182,7 @@ body {
     text-align: center;
     font-family: cursive;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     user-select: none;
 }
@@ -200,6 +200,11 @@ body {
 .score:hover {
     transform: scale(1.06);
     border-radius: inherit;
+}
+
+.score>img {
+    width: 15px;
+    border-radius: 3px;
 }
 
 footer {
