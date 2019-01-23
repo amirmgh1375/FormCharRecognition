@@ -1,6 +1,6 @@
 # Form Character Recognizer
 
-![Web App screenshot!](./Assets/webapp-screenshot.png)
+![Web App screenshot!](./Assets/webapp_screenshot.png)
 
 ![](https://img.shields.io/badge/python-%3E%3D%203.0-blue.svg) ![](https://img.shields.io/badge/version-0.6-pink.svg)
 
