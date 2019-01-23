@@ -1,10 +1,12 @@
 const uploadPlace = document.querySelector('#upload-place');
 const imageCanvas = document.querySelector('#imageCanvas');
+const aboutusButton = document.querySelector('.aboutus')
 
 //  Disabling the dropzone default upload behaiviour (FIXME:)
-uploadPlace.addEventListener('sumbmit', (e)=> {
-    e.preventDefault();
-})
+// uploadPlace.addEventListener('sumbmit', (e)=> {
+//     e.preventDefault();
+// })
+
 
 // Creating a Dropzone element
 var uploadPlaceDropZone = new Dropzone('#upload-place', { 
@@ -18,7 +20,9 @@ uploadPlaceDropZone.on('addedfile', function(file) {
 // After selected image is read and the data URL is ready
 uploadPlaceDropZone.on('thumbnail', function(file) {
     // Disable dropzone on upload place so that clicking wont bring browse window
-    uploadPlaceDropZone.disable();
+    // uploadPlaceDropZone.disable();
+
+    aboutusButton.classList.add('loading');
 
     // Get image preview canvas context
     ctx = imageCanvas.getContext('2d');
@@ -30,7 +34,7 @@ uploadPlaceDropZone.on('thumbnail', function(file) {
         // calculate a Suitable size for resizing image
         // (Image might be too big)
         aspect =  file.width / file.height;
-        height = 600;
+        height = 500;
         width = height * aspect;
         
         Object.assign(uploadPlace.style, {
@@ -45,18 +49,35 @@ uploadPlaceDropZone.on('thumbnail', function(file) {
         imageCanvas.width = width;
         imageCanvas.height = height;
 
-    
+        // Display image on canvas
         ctx.drawImage(imageObj, 0, 0, file.width, file.height, 0, 0, width, height);
-
-        setTimeout(() => {
-            drawContoures(imageCanvas);
-        }, 500);
+        // Draw contours on image
+        drawContoures(imageCanvas);
     };
 });
 
-function onOpenCvReady() {
-    console.log('onOpenCvReady')
-}
+uploadPlaceDropZone.on('success', (e, result)=> {
+    predictionsList = result;
+    console.log(result)
+    // predictionsList = predictionsList.map(item => (item == 10) ? '-' : item)
+    var scores = []
+    for (var i=0; i<predictionsList.length; i += 5){
+        scores.push(predictionsList.slice(i, i+5))
+    }
+    scores = scores.map(score => {
+        return parseInt(score.filter(item => !(item == 10)).join(''));
+    });
+    
+    predictedScores = document.querySelectorAll('.predicted-scores .score')
+    for (var i=0; i < predictedScores.length; i++) {
+        predictedScores[i].innerText = scores[i];
+    }
+    
+    scoresHolder = document.querySelector('.predicted-scores')
+    scoresHolder.style.width = '200px';
+    scoresHolder.style.marginLeft = '30px';
+    aboutusButton.classList.remove('loading');
+});
 
 function drawContoures(canvas) {
     let src = cv.imread(canvas);
@@ -72,7 +93,8 @@ function drawContoures(canvas) {
     let color = new cv.Scalar(255, 0, 0, 255);
     for (let i = 0; i < contours.size(); ++i) {
         area = cv.contourArea(contours.get(i), false);
-        if (area <= 130 && area >= 100){
+        height = cv.boundingRect(contours.get(i)).height
+        if (area <= 90 && area >= 70 && height > 5){
             console.log(area, cv.boundingRect(contours.get(i)))
             cv.drawContours(dst, contours, i, color, 1, cv.LINE_8, hierarchy, 100);
         }

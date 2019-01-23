@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, request, send_from_directory, url_for
+from flask import Flask, flash, redirect, request, send_from_directory, url_for, jsonify
 from werkzeug.utils import secure_filename
 import base64
 import json
@@ -9,6 +9,7 @@ import numpy as np
 import cv2
 
 from generate_dataset import CharRecognition
+from ocr import predict
 
 # define server app and model
 app = Flask(__name__)
@@ -43,12 +44,14 @@ def upload():
         for file in request.files.getlist("file"):
             file.save(destination)
         
-        return "ko"
+        extractImagesFromForm()
+        out = predict()
+        return jsonify(out)
 
 def extractImagesFromForm():
     alfa_c = 0
     num_c = 0
-    form_to_extract = os.path.join(form_path, 'form.jpg')
+    form_to_extract = os.path.join(form_path, 'formToPredict.jpg')
     try:
         CharRecognition_object = CharRecognition(form_to_extract)
         image, detected_eyes = CharRecognition_object.detect_eyes(CharRecognition_object.strighted_image)
@@ -64,6 +67,7 @@ def extractImagesFromForm():
             alfa_c += 1  
     except:
         print('image type error !!')
+        return -1
 
     print(alfa_c, num_c)
 
@@ -87,28 +91,28 @@ labels = ['Architect Campus', 'Buffet',
               'Computer Campus', 'Culture house', 'Field', 'Self']
 
 # End-point to predict last uploded image
-def predict(imgaddr):
-    ''' predicts the last uploaded image an returns a string at last containing classes probability.'''
-    global model
-    img = cv2.imread(imgaddr)
-    h, w, c = img.shape
-    if w > h: # rotate image if it's in wrong orientation
-      # rotation is done by ImageMagick so it sohuld be installed
-      call(['mogrify', '-rotate', '90', 'uploads/imageToPredict.jpg'])
-    img = image.load_img(imgaddr, target_size=(108, 192))
-    x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
-    if not model:
-        print('------- loading model')
-        model = load_model('PF-50-fixed 24-3-97.h5')
-    features = model.predict(x)
-    predicts = []
-    for i, p in enumerate(features[0]):
-        item = '%s Probability: %f' % (labels[i], p)
-        predicts.append(item)
-    predicts_string = '\n'.join(predicts)
-    return predicts_string
+# def predict(imgaddr):
+#     ''' predicts the last uploaded image an returns a string at last containing classes probability.'''
+#     global model
+#     img = cv2.imread(imgaddr)
+#     h, w, c = img.shape
+#     if w > h: # rotate image if it's in wrong orientation
+#       # rotation is done by ImageMagick so it sohuld be installed
+#       call(['mogrify', '-rotate', '90', 'uploads/imageToPredict.jpg'])
+#     img = image.load_img(imgaddr, target_size=(108, 192))
+#     x = image.img_to_array(img)
+#     x = np.expand_dims(x, axis=0)
+#     x = preprocess_input(x)
+#     if not model:
+#         print('------- loading model')
+#         model = load_model('PF-50-fixed 24-3-97.h5')
+#     features = model.predict(x)
+#     predicts = []
+#     for i, p in enumerate(features[0]):
+#         item = '%s Probability: %f' % (labels[i], p)
+#         predicts.append(item)
+#     predicts_string = '\n'.join(predicts)
+#     return predicts_string
 
 
 

@@ -10,18 +10,40 @@
     <link rel="stylesheet" href="./src/css/style.css">
 
     <script src="./src/js/dropzone.js"></script>
-    <script async src="./src/js/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+    <script src="./src/js/opencv.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="container">
-        <div id="upload-place" data-width="400px" data-height="400px">
-            <!-- <i class="far fa-image fa-4x"></i> -->
-            <p class="before-upload">Drop the form Here</p>
-            <canvas id="imageCanvas"></canvas>
+        <div class="wrapper">
+            <div id="upload-place" data-width="400px" data-height="400px">
+                <!-- <i class="far fa-image fa-4x"></i> -->
+                <p class="before-upload">Drop the form Here</p>
+                <canvas id="imageCanvas"></canvas>
+            </div>
+            <div class="predicted-scores">
+                <div class="score" data-row="1"></div>
+                <div class="score" data-row="2"></div>
+                <div class="score" data-row="3"></div>
+                <div class="score" data-row="4"></div>
+                <div class="score" data-row="5"></div>
+                <div class="score" data-row="6"></div>
+                <div class="score" data-row="7"></div>
+                <div class="score" data-row="8"></div>
+                <div class="score" data-row="9"></div>
+                <div class="score" data-row="10"></div>
+                <div class="score" data-row="11"></div>
+                <div class="score" data-row="12"></div>
+                <div class="score" data-row="13"></div>
+                <div class="score" data-row="14"></div>
+                <div class="score" data-row="15"></div>
+            </div>
         </div>
     </div>
 
-    <button class="aboutus">AboutUs</button>
+    <footer>
+        <button class="aboutus">AboutUs</button>
+        <p>Principles of Computational Intelligence</p>
+    </footer>
     <script src="./src/js/index.js"></script>
 </body>
 </html>
